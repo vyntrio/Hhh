@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Confirmation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #000000;
+            --bg-card: #121212;
+            --primary: #2196F3;
+        }
+        body {
+            background-color: var(--bg-dark);
+            color: white;
+        }
+        .header-logo {
+            display: block;
+            margin: 0 auto;
+            height: 70px;
+            padding: 15px 0;
+        }
+        .confirmation-container {
+            max-width: 500px;
+            margin: 30px auto;
+            padding: 30px;
+            border-radius: 10px;
+            background-color: var(--bg-card);
+            border: 1px solid #333;
+        }
+        .alert-danger {
+            background-color: #5c2a2a;
+            border-color: #7d3737;
+        }
+        .back-btn {
+            background-color: var(--primary);
+            border: none;
+            padding: 12px;
+            font-weight: 600;
+            width: 100%;
+            border-radius: 5px;
+        }
+        .order-details {
+            background-color: #1a1a1a;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="https://i.postimg.cc/0Nb4rqmh/image-search-1752245026702.png" alt="BGMI UC Shop" class="header-logo">
+    </header>
+
+    <div class="container">
+        <div class="confirmation-container">
+            <h2 class="text-center mb-4">Payment Confirmation</h2>
+            
+            <div class="alert alert-danger">
+                <strong>PAYMENT NOT SUCCESSFUL!</strong> Please try again or contact support.
+            </div>
+            
+            <div class="order-details">
+                <p><strong>Product:</strong> <span id="confirmProduct"></span></p>
+                <p><strong>Amount:</strong> ₹<span id="confirmPrice"></span></p>
+                <p><strong>UID:</strong> <span id="confirmUID"></span></p>
+                <p><strong>UTR:</strong> <span id="confirmUTR"></span></p>
+            </div>
+            
+            <a href="index.html" class="btn back-btn">BACK TO SHOP</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const order = JSON.parse(sessionStorage.getItem('orderDetails'));
+            if (order) {
+                document.getElementById('confirmProduct').textContent = order.product.replace('-', ' ');
+                document.getElementById('confirmPrice').textContent = order.price;
+                document.getElementById('confirmUID').textContent = order.uid;
+                document.getElementById('confirmUTR').textContent = order.utr || 'Not provided';
+            }
+        });
+    </script>
+</body>
+</html>
